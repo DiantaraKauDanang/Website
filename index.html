@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danang Sofa Ma'arif | Portfolio</title>
+    <meta name="description" content="Portfolio Danang Sofa Ma'arif - Content Creator Edukasi Digital Islam, Administrator, Education & Data Analyst">
+    <meta name="keywords" content="Danang Sofa Ma'arif, content creator, edukasi islam, data analyst, administrator, Manusia Pribumi">
+    <meta name="author" content="Danang Sofa Ma'arif">
+    
+    <!-- Security Headers -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval'; 
+    script-src 'self' https://www.googletagmanager.com https://cdnjs.cloudflare.com 'unsafe-inline' 'unsafe-eval'; 
+    style-src 'self' https://fonts.googleapis.com https://cdnjs.cloudflare.com 'unsafe-inline'; 
+    font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; 
+    img-src 'self' https: data: blob:; 
+    connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://wa.me;">
+    
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    
+    <!-- Google Analytics 4 - VALID MEASUREMENT ID -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-E4MPX4E1YJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-E4MPX4E1YJ', {
+            'anonymize_ip': true,
+            'allow_ad_personalization_signals': false,
+            'restricted_data_processing': true,
+            'page_title': document.title,
+            'page_location': window.location.href,
+            'page_path': window.location.pathname
+        });
+    </script>
+
+    <!-- External Libraries -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- JavaScript Files -->
+    <script src="js/main.js" defer></script>
+    <script src="js/portfolio.js" defer></script>
+    <script src="js/admin.js" defer></script>
+    <script src="js/security.js" defer></script>
+</head>
+<body>
+    <!-- Enhanced Background -->
+    <div class="enhanced-bg"></div>
+
+    <!-- Particle System -->
+    <div class="particles-container" id="particlesContainer"></div>
+
+    <!-- Security Lockout Screen -->
+    <div class="security-lockout" id="securityLockout" style="display: none;">
+        <div class="security-lockout-content">
+            <h2><i class="fas fa-shield-alt"></i> Akses Diblokir</h2>
+            <p>Terlalu banyak percobaan login yang gagal. Sistem keamanan telah mengaktifkan proteksi.</p>
+            <div class="attempts-counter">
+                <strong>Percobaan Login: 3/3</strong>
+            </div>
+            <p>Anda harus menunggu selama <span class="countdown-timer" id="countdownTimer">24:00:00</span> sebelum dapat mencoba lagi.</p>
+            <p style="color: var(--accent); font-size: 0.9rem;">
+                <i class="fas fa-exclamation-triangle"></i> 
+                Jika ini adalah kesalahan, hubungi administrator website.
+            </p>
+        </div>
+    </div>
+
+    <!-- Unsaved Changes Indicator -->
+    <div class="unsaved-changes" id="unsavedChanges">
+        <i class="fas fa-exclamation-triangle"></i>
+        <span id="unsavedChangesText">Ada perubahan yang belum disimpan</span>
+    </div>
+
+    <!-- Auto-save Status -->
+    <div class="auto-save-status" id="autoSaveStatus">
+        <i class="fas fa-check-circle"></i>
+        <span id="autoSaveStatusText">Perubahan disimpan otomatis</span>
+    </div>
+
+    <!-- Backup Status Indicator -->
+    <div class="backup-status" id="backupStatus">
+        <i class="fas fa-database"></i>
+        <span id="backupStatusText">Backup berhasil dibuat</span>
+    </div>
+
+    <!-- SSL Security Badge -->
+    <div class="ssl-badge" id="sslBadge">
+        <i class="fas fa-lock"></i>
+        <span>SSL Secure</span>
+    </div>
+
+    <!-- Enhanced Security Notice -->
+    <div class="security-notice" id="securityNotice">
+        <i class="fas fa-shield-alt"></i> <span id="securityNoticeText">Website terlindungi dengan sistem keamanan</span>
+    </div>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/6288216045246" class="whatsapp-float" target="_blank" id="whatsappButton" rel="noopener noreferrer">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Save Button -->
+    <button class="save-btn" id="saveBtn" title="Simpan Perubahan">
+        <i class="fas fa-save"></i>
+    </button>
+
+    <!-- Exit Edit Mode Button -->
+    <button class="exit-edit-mode" id="exitEditModeBtn" title="Keluar dari Mode Edit">
+        <i class="fas fa-sign-out-alt"></i>
+    </button>
+
+    <!-- Admin Login Modal -->
+    <div class="admin-login-modal" id="adminLoginModal">
+        <div class="admin-login-content">
+            <div class="login-attempts" id="loginAttemptsDisplay">
+                <span id="loginAttemptsText">Percobaan:</span> <span id="attemptsCount">0</span>/3
+            </div>
+            <h2 id="adminLoginTitle">Admin Login</h2>
+            <div class="form-group">
+                <label for="adminPassword" id="adminPasswordLabel">Password</label>
+                <input type="password" id="adminPassword" class="form-control" placeholder="Masukkan password admin" autocomplete="current-password">
+                <div class="error-message" id="adminPasswordError"></div>
+            </div>
+            <button class="btn click-effect" id="adminLoginBtn" data-id="adminLoginBtn">Login</button>
+            <button class="btn btn-outline click-effect" id="closeAdminLogin" data-id="closeAdminLogin">Batal</button>
+        </div>
+    </div>
+
+    <!-- Calendar Modal - IMPROVED -->
+    <div class="calendar-modal" id="calendarModal">
+        <div class="calendar-content">
+            <div class="calendar-header">
+                <button class="calendar-nav" id="calendarPrev"><i class="fas fa-chevron-left"></i></button>
+                <h3 id="calendarMonthYear">Januari 2024</h3>
+                <button class="calendar-nav" id="calendarNext"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            <div class="calendar-year-selector">
+                <button class="calendar-year-btn" id="yearPrev"><i class="fas fa-chevron-left"></i></button>
+                <div class="calendar-year-display" id="calendarYear">2024</div>
+                <button class="calendar-year-btn" id="yearNext"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            <div class="calendar-grid" id="calendarGrid">
+                <!-- Calendar days will be generated here -->
+            </div>
+            <div class="form-group">
+                <label for="selectedDate" id="selectedDateLabel">Tanggal Terpilih:</label>
+                <input type="text" id="selectedDate" class="form-control" readonly>
+            </div>
+            <button class="btn click-effect" id="confirmDate" data-id="confirmDate">Konfirmasi Tanggal</button>
+            <button class="btn btn-outline click-effect" id="closeCalendar" data-id="closeCalendar">Batal</button>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div class="admin-dashboard" id="adminDashboard">
+        <div class="admin-header">
+            <h2 id="adminDashboardTitle">Admin Dashboard</h2>
+            <button class="btn btn-outline click-effect" id="closeAdminDashboard" data-id="closeAdminDashboard">Keluar</button>
+        </div>
+        <div class="admin-tabs">
+            <button class="admin-tab active" data-tab="portfolio" data-id="adminTabPortfolio">Portfolio</button>
+            <button class="admin-tab" data-tab="blog" data-id="adminTabBlog">Artikel</button>
+            <button class="admin-tab" data-tab="settings" data-id="adminTabSettings">Pengaturan</button>
+            <button class="admin-tab" data-tab="backup" data-id="adminTabBackup">Backup</button>
+        </div>
+        <div class="admin-content">
+            <!-- Portfolio Management - IMPROVED -->
+            <div class="admin-section active" id="portfolio-section">
+                <h3 id="portfolioManageTitle">Kelola Portfolio</h3>
+                <form id="portfolioForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="portfolioTitle" id="portfolioTitleLabel">Judul Portfolio (ID)</label>
+                            <input type="text" id="portfolioTitle" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="portfolioTitleEn" id="portfolioTitleEnLabel">Judul Portfolio (EN)</label>
+                            <input type="text" id="portfolioTitleEn" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="portfolioCategory" id="portfolioCategoryLabel">Kategori</label>
+                            <select id="portfolioCategory" class="form-control" required>
+                                <option value="content">Content Creation</option>
+                                <option value="analysis">Data Analysis</option>
+                                <option value="education">Education</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="portfolioDate" id="portfolioDateLabel">Tanggal Portfolio</label>
+                            <div class="form-row">
+                                <input type="text" id="portfolioDate" class="form-control" placeholder="Klik untuk memilih tanggal" readonly>
+                                <button type="button" class="btn btn-outline" id="openPortfolioCalendar">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="portfolioDescription" id="portfolioDescriptionLabel">Deskripsi (ID)</label>
+                        <textarea id="portfolioDescription" class="form-control" rows="3" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="portfolioDescriptionEn" id="portfolioDescriptionEnLabel">Deskripsi (EN)</label>
+                        <textarea id="portfolioDescriptionEn" class="form-control" rows="3" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="portfolioTags" id="portfolioTagsLabel">Tags (pisahkan dengan koma)</label>
+                        <input type="text" id="portfolioTags" class="form-control" placeholder="Content Creation, Digital Marketing, Social Media">
+                    </div>
+                    <div class="form-group">
+                        <label id="portfolioImageLabel">Gambar Portfolio (Dapat upload 3-5 gambar)</label>
+                        <p class="file-format-info">
+                            <i class="fas fa-info-circle"></i> Format yang didukung: JPG, PNG, GIF, WebP, PDF, Screenshot (max. 5MB per file)
+                        </p>
+                        <div class="file-upload">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p id="portfolioUploadText">Seret dan lepas file gambar atau klik untuk memilih (Maksimal 5 file)</p>
+                            <input type="file" id="portfolioImages" class="file-input" accept=".jpg,.jpeg,.png,.gif,.webp,.pdf,image/*" multiple>
+                            <label for="portfolioImages" class="file-label" id="portfolioFileLabel">Pilih File (Multiple)</label>
+                            <div class="file-preview" id="portfolioImagesPreview">
+                                <div class="file-preview-grid" id="portfolioPreviewGrid">
+                                    <!-- Preview files will be added here -->
+                                </div>
+                                <div class="file-info">
+                                    <p id="selectedFileCount">0 file terpilih</p>
+                                    <p id="fileSizeInfo">Total size: 0 MB</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="portfolioId">
+                    <button type="submit" class="btn click-effect" id="portfolioSubmitBtn">Tambah Portfolio</button>
+                    <button type="button" class="btn btn-outline click-effect" id="portfolioCancelBtn" style="display: none;">Batal Edit</button>
+                </form>
+                
+                <div class="portfolio-list" id="portfolioList">
+                    <!-- Portfolio items will be dynamically added here -->
+                </div>
+            </div>
+
+            <!-- Blog Management - IMPROVED -->
+            <div class="admin-section" id="blog-section">
+                <h3 id="blogManageTitle">Kelola Artikel</h3>
+                <form id="blogForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="blogTitle" id="blogTitleLabel">Judul Artikel (ID)</label>
+                            <input type="text" id="blogTitle" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="blogTitleEn" id="blogTitleEnLabel">Judul Artikel (EN)</label>
+                            <input type="text" id="blogTitleEn" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="blogCategory" id="blogCategoryLabel">Kategori</label>
+                            <input type="text" id="blogCategory" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="blogDate" id="blogDateLabel">Tanggal Artikel</label>
+                            <div class="form-row">
+                                <input type="text" id="blogDate" class="form-control" placeholder="Klik untuk memilih tanggal" readonly>
+                                <button type="button" class="btn btn-outline" id="openBlogCalendar">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="blogContent" id="blogContentLabel">Konten Artikel (ID)</label>
+                        <textarea id="blogContent" class="form-control" rows="4" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="blogContentEn" id="blogContentEnLabel">Konten Artikel (EN)</label>
+                        <textarea id="blogContentEn" class="form-control" rows="4" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label id="blogImageLabel">Gambar Artikel (Dapat upload 3-5 gambar)</label>
+                        <p class="file-format-info">
+                            <i class="fas fa-info-circle"></i> Format yang didukung: JPG, PNG, GIF, WebP, PDF, Screenshot (max. 5MB per file)
+                        </p>
+                        <div class="file-upload">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p id="blogUploadText">Seret dan lepas file gambar atau klik untuk memilih (Maksimal 5 file)</p>
+                            <input type="file" id="blogImages" class="file-input" accept=".jpg,.jpeg,.png,.gif,.webp,.pdf,image/*" multiple>
+                            <label for="blogImages" class="file-label" id="blogFileLabel">Pilih File (Multiple)</label>
+                            <div class="file-preview" id="blogImagesPreview">
+                                <div class="file-preview-grid" id="blogPreviewGrid">
+                                    <!-- Preview files will be added here -->
+                                </div>
+                                <div class="file-info">
+                                    <p id="blogSelectedFileCount">0 file terpilih</p>
+                                    <p id="blogFileSizeInfo">Total size: 0 MB</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="blogId">
+                    <button type="submit" class="btn click-effect" id="blogSubmitBtn">Tambah Artikel</button>
+                    <button type="button" class="btn btn-outline click-effect" id="blogCancelBtn" style="display: none;">Batal Edit</button>
+                </form>
+                
+                <div class="portfolio-list" id="blogList">
+                    <!-- Blog items will be dynamically added here -->
+                </div>
+            </div>
+
+            <!-- Settings -->
+            <div class="admin-section" id="settings-section">
+                <h3 id="settingsTitle">Pengaturan Website</h3>
+                <div class="form-group">
+                    <label id="changePasswordLabel">Ubah Password Admin</label>
+                    <input type="password" id="newPassword" class="form-control" placeholder="Password baru">
+                    <input type="password" id="confirmPassword" class="form-control" placeholder="Konfirmasi password baru">
+                </div>
+                <button class="btn click-effect" id="changePassword" data-id="changePassword">Ubah Password</button>
+                
+                <div class="form-group" style="margin-top: 30px;">
+                    <label id="exportDataLabel">Ekspor Data</label>
+                    <p id="exportDataDesc">Unduh semua data portfolio dan artikel dalam format JSON</p>
+                    <button class="btn btn-outline click-effect" id="exportData" data-id="exportData">Ekspor Data</button>
+                </div>
+
+                <div class="form-group" style="margin-top: 30px;">
+                    <label id="autoSaveSettingsLabel">Pengaturan Auto-save</label>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="checkbox" id="autoSaveEnabled" checked>
+                            <label for="autoSaveEnabled" id="autoSaveEnabledLabel">Aktifkan auto-save</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="autoSaveInterval" id="autoSaveIntervalLabel">Interval Auto-save (detik)</label>
+                            <input type="number" id="autoSaveInterval" class="form-control" value="30" min="10" max="300">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-top: 30px;">
+                    <label id="languageSettingsLabel">Pengaturan Bahasa Default</label>
+                    <select id="defaultLanguage" class="form-control">
+                        <option value="id">Bahasa Indonesia</option>
+                        <option value="en">English</option>
+                    </select>
+                    <button class="btn btn-outline click-effect" id="saveLanguageSettings" style="margin-top: 10px;">Simpan Pengaturan Bahasa</button>
+                </div>
+
+                <!-- File Upload Settings -->
+                <div class="form-group" style="margin-top: 30px;">
+                    <label id="uploadSettingsLabel">Pengaturan Upload File</label>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="maxFileSize" id="maxFileSizeLabel">Ukuran File Maksimal (MB)</label>
+                            <input type="number" id="maxFileSize" class="form-control" value="5" min="1" max="50">
+                        </div>
+                        <div class="form-group">
+                            <label for="maxFileCount" id="maxFileCountLabel">Jumlah File Maksimal</label>
+                            <input type="number" id="maxFileCount" class="form-control" value="5" min="1" max="10">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label id="allowedFormatsLabel">Format File yang Diizinkan</label>
+                        <div class="format-tags">
+                            <span class="format-tag active">JPG</span>
+                            <span class="format-tag active">JPEG</span>
+                            <span class="format-tag active">PNG</span>
+                            <span class="format-tag active">GIF</span>
+                            <span class="format-tag active">WebP</span>
+                            <span class="format-tag active">PDF</span>
+                            <span class="format-tag">SVG</span>
+                            <span class="format-tag">BMP</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-outline click-effect" id="saveUploadSettings" style="margin-top: 10px;">Simpan Pengaturan Upload</button>
+                </div>
+            </div>
+
+            <!-- Backup Management -->
+            <div class="admin-section" id="backup-section">
+                <h3 id="backupTitle">Manajemen Backup</h3>
+                <div class="form-group">
+                    <label id="createBackupLabel">Buat Backup</label>
+                    <p id="createBackupDesc">Buat salinan cadangan dari semua data website termasuk file gambar</p>
+                    <button class="btn click-effect" id="createBackupBtn" data-id="createBackupBtn">Buat Backup Sekarang</button>
+                </div>
+
+                <div class="form-group" style="margin-top: 30px;">
+                    <label id="restoreBackupLabel">Restore Backup</label>
+                    <p id="restoreBackupDesc">Pulihkan data dari backup yang sudah ada</p>
+                    <div class="file-upload">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p id="restoreUploadText">Upload file backup (.zip atau .json)</p>
+                        <input type="file" id="backupFile" class="file-input" accept=".zip,.json">
+                        <label for="backupFile" class="file-label" id="backupFileLabel">Pilih File Backup</label>
+                    </div>
+                    <button class="btn btn-outline click-effect" id="restoreBackupBtn" style="margin-top: 15px;">Restore Backup</button>
+                </div>
+
+                <div class="form-group" style="margin-top: 30px;">
+                    <label id="backupListLabel">Daftar Backup Tersedia</label>
+                    <div class="portfolio-list" id="backupList">
+                        <!-- Backup items will be dynamically added here -->
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-top: 30px;">
+                    <label id="autoBackupLabel">Pengaturan Auto-backup</label>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="checkbox" id="autoBackupEnabled" checked>
+                            <label for="autoBackupEnabled" id="autoBackupEnabledLabel">Aktifkan auto-backup</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="autoBackupInterval" id="autoBackupIntervalLabel">Interval Auto-backup (jam)</label>
+                            <select id="autoBackupInterval" class="form-control">
+                                <option value="1">1 Jam</option>
+                                <option value="6">6 Jam</option>
+                                <option value="12">12 Jam</option>
+                                <option value="24" selected>24 Jam</option>
+                                <option value="168">1 Minggu</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="btn btn-outline click-effect" id="saveBackupSettings" style="margin-top: 10px;">Simpan Pengaturan Backup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detail Modal -->
+    <div class="detail-modal" id="detailModal">
+        <div class="detail-content">
+            <button class="detail-close" id="detailClose">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="detail-hero">
+                <img id="detailHeroImage" src="" alt="Detail Hero">
+            </div>
+            <div class="detail-body">
+                <div class="detail-header">
+                    <div>
+                        <h1 class="detail-title" id="detailTitle">Judul Proyek</h1>
+                        <div class="detail-meta">
+                            <span class="detail-category" id="detailCategory">Kategori</span>
+                            <span class="detail-date" id="detailDate">
+                                <i class="far fa-calendar"></i>
+                                <span id="detailDateText">Tanggal</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="detail-description" id="detailDescription">
+                    Deskripsi proyek akan ditampilkan di sini.
+                </div>
+                
+                <div class="detail-features" id="detailFeatures">
+                    <!-- Features will be dynamically added here -->
+                </div>
+                
+                <div class="detail-gallery" id="detailGallerySection" style="display: none;">
+                    <h3 id="detailGalleryTitle">Galeri Proyek</h3>
+                    <div class="gallery-grid" id="detailGallery">
+                        <!-- Gallery items will be dynamically added here -->
+                    </div>
+                </div>
+                
+                <div class="detail-technologies" id="detailTechnologiesSection" style="display: none;">
+                    <h3 id="detailTechTitle">Teknologi yang Digunakan</h3>
+                    <div class="tech-grid" id="detailTechnologies">
+                        <!-- Technologies will be dynamically added here -->
+                    </div>
+                </div>
+                
+                <div class="detail-actions">
+                    <button class="btn click-effect" id="detailLiveDemo" style="display: none;">
+                        <i class="fas fa-external-link-alt"></i> <span id="detailLiveDemoText">Lihat Demo</span>
+                    </button>
+                    <button class="btn btn-outline click-effect" id="detailSourceCode" style="display: none;">
+                        <i class="fab fa-github"></i> <span id="detailSourceCodeText">Kode Sumber</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-logo">
+            <div class="logo-icon">D</div>
+            <div class="logo-text">DiantaraKau<span>Danang</span></div>
+        </div>
+        <div class="loading-bar">
+            <div class="loading-progress" id="loadingProgress"></div>
+        </div>
+        <p style="color: white; margin-top: 20px; opacity: 0.8;" id="loadingText">Memuat konten...</p>
+    </div>
+
+    <!-- Header & Navigation -->
+    <header id="header">
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">
+                    <div class="logo-icon">D</div>
+                    <div class="logo-text">DiantaraKau<span>Danang</span></div>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#home" data-id="nav-home">Rumah</a></li>
+                    <li><a href="#about" data-id="nav-about">Tentang</a></li>
+                    <li><a href="#services" data-id="nav-services">Layanan</a></li>
+                    <li><a href="#portfolio" data-id="nav-portfolio">Portofolio</a></li>
+                    <li><a href="#contact" data-id="nav-contact">Kontak</a></li>
+                    <li class="language-switcher">
+                        <div class="language-dropdown">
+                            <button class="language-btn" id="languageToggle">
+                                <i class="fas fa-globe"></i>
+                                <span id="languageText">ID</span>
+                                <i class="fas fa-chevron-down" style="font-size: 0.8rem; margin-left: 5px;"></i>
+                            </button>
+                            <div class="language-options" id="languageOptions">
+                                <div class="language-option active" data-lang="id">
+                                    <span>Indonesia</span>
+                                </div>
+                                <div class="language-option" data-lang="en">
+                                    <span>English</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Admin Panel -->
+    <div class="admin-panel">
+        <button class="admin-btn" id="themeToggle" title="Toggle Dark Mode">
+            <i class="fas fa-moon"></i>
+        </button>
+        <button class="admin-btn" id="editModeToggle" title="Toggle Edit Mode">
+            <i class="fas fa-edit"></i>
+        </button>
+        <button class="admin-btn" id="adminDashboardToggle" title="Admin Dashboard">
+            <i class="fas fa-cog"></i>
+        </button>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-bg"></div>
+        <div class="morphing-shapes">
+            <div class="morph-shape"></div>
+            <div class="morph-shape"></div>
+            <div class="morph-shape"></div>
+        </div>
+        <div class="container">
+            <div class="hero-content fade-in-up">
+                <h1 id="hero-title" class="editable">Halo, Saya <span>Danang Sofa Ma'arif</span></h1>
+                <p id="hero-description" class="editable">Saya merupakan seorang content creator edukasi digital islam, memiliki ketertarikan pada dunia pendidikan dan kemajuan perekonomian nasional.</p>
+                <div>
+                    <a href="#portfolio" class="btn click-effect" id="hero-portfolio-btn">Lihat Portofolio <i class="fas fa-arrow-right"></i></a>
+                    <a href="#contact" class="btn btn-outline click-effect" id="hero-contact-btn">Hubungi Saya</a>
+                </div>
+            </div>
+        </div>
+        <div class="hero-shape"></div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2 id="about-title" class="editable">Tentang Saya</h2>
+                <p id="about-description" class="editable">Mari berkenalan lebih dekat dengan profil dan pengalaman saya dalam dunia konten kreator, pengalaman, pendidikan, dan analisis data</p>
+            </div>
+            <div class="about-content">
+                <div class="about-img slide-in-left">
+                    <div class="edit-controls">
+                        <button class="edit-btn" data-edit="about-image"><i class="fas fa-image"></i></button>
+                    </div>
+                    <!-- Updated image path -->
+                    <img src="images/profile/danang-profile.jpg" alt="Danang Sofa Ma'arif" class="editable-image" id="about-image" loading="lazy">
+                </div>
+                <div class="about-text slide-in-right">
+                    <h3 id="about-subtitle" class="editable">Pendidikan & Pengalaman</h3>
+                    <p id="about-text-1" class="editable">Merupakan individu yang memiliki antusias dan motivasi tinggi. Sangat tertarik di dunia bisnis, pekerjaan, pengetahuan dan kemajuan perekonomian nasional.</p>
+                    <p id="about-text-2" class="editable">Memiliki pengalaman internship sebagai data entri di Badan Pusat Statistik dan Administrasi Logistik di CV Putmasari Boga Utama. Lulusan terbaik ke-3 dengan rata-rata nilai 88.98 di SMA Multazam Islamic Boarding School Semarang dan lulusan Universitas Islam Negeri Salatiga, Fakultas Ekonomi dan Bisnis Islam dengan IPK Kumulatif 3.71/4.00.</p>
+                    <p id="about-text-3" class="editable">Saya senang belajar hal baru serta memiliki etos kerja tinggi.</p>
+                    <div class="stats">
+                        <div class="stat">
+                            <span class="stat-number editable">1</span>
+                            <span class="stat-text editable" id="stat-published">Diterbitkan</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number editable">10</span>
+                            <span class="stat-text editable" id="stat-projects">Proyek Selesai</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number editable">3.71</span>
+                            <span class="stat-text editable" id="stat-gpa">IPK Cumlaude</span>
+                        </div>
+                    </div>
+                    <div class="skills">
+                        <div class="skill editable">Fundamental Analyst</div>
+                        <div class="skill editable">Technical Analyst</div>
+                        <div class="skill editable">Public Speaking</div>
+                        <div class="skill editable">Microsoft Office</div>
+                        <div class="skill editable">Leadership</div>
+                        <div class="skill editable">Supply Chain</div>
+                        <div class="skill editable">Data Analysis</div>
+                        <div class="skill editable">Content Creation</div>
+                        <div class="skill editable">Digital Marketing</div>
+                        <div class="skill editable">Project Management</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section services" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2 id="services-title" class="editable">Layanan Saya</h2>
+                <p id="services-description" class="editable">Berbagai layanan profesional yang saya tawarkan untuk membantu mengembangkan bisnis dan organisasi Anda</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card fade-in-up">
+                    <div class="edit-controls">
+                        <button class="edit-btn" data-edit="service-1-icon"><i class="fas fa-edit"></i></button>
+                    </div>
+                    <div class="service-icon">
+                        <i class="fas fa-chart-bar editable" id="service-1-icon"></i>
+                    </div>
+                    <h3 id="service-1-title" class="editable">Analisis Data</h3>
+                    <p id="service-1-description" class="editable">Layanan analisis data komprehensif untuk mengidentifikasi tren, pola, dan insight yang dapat mendukung pengambilan keputusan bisnis yang lebih baik.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> <span id="service-1-feature-1" class="editable">Analisis statistik mendalam</span></li>
+                        <li><i class="fas fa-check"></i> <span id="service-1-feature-2" class="editable">Visualisasi data interaktif</span></li>
+                        <li><i class="fas fa-check"></i> <span id="service-1-feature-3" class="editable">Laporan insight yang mudah dipahami</span></li>
+                        <li><i class="fas fa-check"></i> <span id="service-1-feature-4" class="editable">Rekomendasi strategis</span></li>
+                    </ul>
+                </div>
+                <div class="service-card fade-in-up" style="animation-delay: 0.2s;">
+                    <div class="edit-controls">
+                        <button class="edit-btn" data-edit="service-2-icon"><i class="fas fa-edit"></i></button>
+                    </div>
+                    <div class="service-icon">
+                        <i class="fas fa-pen-fancy editable" id="service-2-icon"></i>
+                    </div>
+                    <h3 id="service-2-title" class="editable">Konten Edukasi</h3>
+                    <p id="service-2-description" class="editable">Pembuatan konten edukasi digital Islam yang kreatif dan informatif, disesuaikan dengan kebutuhan audiens modern dan platform digital.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> <span id="service-2-feature-1" class="editable">Konten Islami yang relevan</span></li>
+                        <li><i class="fas fa-check"></i> <span id="service-2-feature-2" class="editable">Strategi konten multimedia</span></li>
+                        <li><i class="fas fa-check"></i> <span id="service-2-feature-3" class="editable">Optimasi untuk platform digital</span></li>
+                        <li><i class="fas fa-check"></i> <span id="service-2-feature-4" class="editable">Pengukuran engagement</span></li>
+                    </ul>
+                </div>
+                <div class="service-card fade-in-up" style="animation-delay: 0.4s;">
+                    <div class="edit-controls">
+                        <button class="edit-btn" data-edit="service-3-icon"><i class="fas fa-edit"></i></button>
+                    </div>
+                    <div class="service-icon">
+                        <i class="fas fa-laptop-code editable" id="service-3-icon"></i>
+                    </div>
+                    <h3 id="service-3-title" class="editable">Konsultasi Digital</h3>
+                    <p id="service-3-description" class="editable">Konsultasi strategi digital untuk membantu organisasi dan bisnis meningkatkan kehadiran online dan efektivitas komunikasi digital.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> <span id="service-3-feature-1" class="editable">Audit kehadiran digital</span></li>
+                        <li><i class="fas fa-check"></i> <span id="service-3-feature-2" class="editable">Strategi konten terpadu</span></li>
+                        <li><i class="fas fa-check"></i> <span id="service-3-feature-3" class="editable">Pelatihan tim internal</span></li>
+                        <li><i class="fas fa-check"></i> <span id="service-3-feature-4" class="editable">Pengukuran ROI digital</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="section portfolio" id="portfolio">
+        <div class="container">
+            <div class="portfolio-header">
+                <div class="section-title" style="text-align: left; margin-bottom: 0;">
+                    <h2 id="portfolio-title" class="editable">Portofolio Saya</h2>
+                    <p id="portfolio-description" class="editable">Kumpulan project dan karya terbaik yang telah saya selesaikan</p>
+                </div>
+                <div class="portfolio-filters">
+                    <button class="filter-btn active click-effect" data-filter="all" id="filter-all">Semua</button>
+                    <button class="filter-btn click-effect" data-filter="content" id="filter-content">Pembuat Konten</button>
+                    <button class="filter-btn click-effect" data-filter="analysis" id="filter-analysis">Analisis Data </button>
+                    <button class="filter-btn click-effect" data-filter="education" id="filter-education">Pendidikan</button>
+                </div>
+            </div>
+            <div class="portfolio-grid" id="dynamicPortfolio">
+                <!-- Portfolio items will be dynamically added here -->
+                <!-- Example portfolio item structure -->
+                <div class="portfolio-item" data-category="content">
+                    <div class="portfolio-img">
+                        <img src="images/portfolio/project1-1.jpg" alt="Project 1" loading="lazy">
+                        <div class="portfolio-overlay">
+                            <div class="portfolio-buttons">
+                                <button class="btn btn-sm click-effect view-portfolio-detail" data-id="project1">Lihat Detail</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>Content Creation Project</h3>
+                        <p>Proyek pembuatan konten edukasi digital Islam</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">Content Creation</span>
+                            <span class="tag">Digital Marketing</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Preview Section -->
+    <section class="section blog-preview">
+        <div class="container">
+            <div class="section-title">
+                <h2 id="blog-title" class="editable">Artikel Terbaru</h2>
+                <p id="blog-description" class="editable">Tips dan wawasan tentang konten edukasi Islam dan analisis data</p>
+            </div>
+            
+            <!-- Blog Carousel -->
+            <div class="blog-carousel" id="blogCarousel">
+                <div class="carousel-track" id="carouselTrack">
+                    <!-- Carousel slides will be dynamically added here -->
+                    <!-- Example carousel slide -->
+                    <div class="carousel-slide">
+                        <div class="carousel-img">
+                            <img src="images/blog/article1.jpg" alt="Artikel 1" loading="lazy">
+                        </div>
+                        <div class="carousel-content">
+                            <h3>Strategi Konten Edukasi Islam di Era Digital</h3>
+                            <p>Bagaimana membuat konten Islami yang relevan dan menarik untuk generasi digital...</p>
+                            <a href="#" class="btn btn-sm click-effect read-more">Baca Selengkapnya</a>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-nav carousel-prev" id="carouselPrev">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="carousel-nav carousel-next" id="carouselNext">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <div class="carousel-dots" id="carouselDots">
+                    <!-- Dots will be dynamically added here -->
+                </div>
+            </div>
+            
+            <div class="blog-grid" id="dynamicBlog">
+                <!-- Blog items will be dynamically added here -->
+                <!-- Example blog item structure -->
+                <article class="blog-card">
+                    <div class="blog-img">
+                        <img src="images/blog/article1.jpg" alt="Artikel 1" loading="lazy">
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-category">Edukasi Islam</span>
+                            <span class="blog-date"><i class="far fa-calendar"></i> 15 Jan 2024</span>
+                        </div>
+                        <h3 class="blog-title">Strategi Konten Edukasi Islam di Era Digital</h3>
+                        <p class="blog-excerpt">Panduan lengkap untuk membuat konten Islami yang menarik dan edukatif...</p>
+                        <a href="#" class="btn btn-outline click-effect read-more">Baca Selengkapnya</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2 id="contact-title" class="editable">Hubungi Saya</h2>
+                <p id="contact-description" class="editable">Mari berkolaborasi untuk menciptakan solusi yang berdampak positif</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3 id="contact-location-title" class="editable">Lokasi</h3>
+                            <p id="contact-location" class="editable">Kab. Semarang, Jawa Tengah, Indonesia</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3 id="contact-phone-title" class="editable">Telepon</h3>
+                            <p id="contact-phone" class="editable">+62 88216045246</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3 id="contact-email-title" class="editable">Email</h3>
+                            <p id="contact-email" class="editable">danang.sofa04@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3 id="contact-website-title" class="editable">Website</h3>
+                            <p id="contact-website" class="editable">www.manusiapribumi.com</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <!-- Honeypot field untuk anti-spam -->
+                        <input type="text" id="website" name="website" class="honeypot-field" autocomplete="off">
+                        <div class="form-group">
+                            <label for="name" id="contact-form-name" class="editable">Nama Lengkap</label>
+                            <input type="text" id="name" class="form-control" placeholder="Masukkan nama lengkap" required autocomplete="name">
+                            <div class="error-message" id="nameError">Nama harus diisi</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" id="contact-form-email" class="editable">Email</label>
+                            <input type="email" id="email" class="form-control" placeholder="Masukkan alamat email" required autocomplete="email">
+                            <div class="error-message" id="emailError">Format email tidak valid</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject" id="contact-form-subject" class="editable">Subjek</label>
+                            <input type="text" id="subject" class="form-control" placeholder="Masukkan subjek pesan" required autocomplete="off">
+                            <div class="error-message" id="subjectError">Subjek harus diisi</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="message" id="contact-form-message" class="editable">Pesan</label>
+                            <textarea id="message" class="form-control" placeholder="Tulis pesan Anda di sini" required autocomplete="off"></textarea>
+                            <div class="error-message" id="messageError">Pesan harus diisi</div>
+                        </div>
+                        <button type="submit" class="btn click-effect" id="contact-form-submit">Kirim Pesan <i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3 id="footer-about-title" class="editable">Tentang Saya</h3>
+                    <p id="footer-about-description" class="editable">Saya adalah seorang Content Creator, Administrator, Education & Data Analyst dengan passion untuk menciptakan solusi digital yang kreatif dan berdampak positif bagi masyarakat.</p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/danangsofaa?igsh=MXJmeHl1eW4xdG9lMw==" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.tiktok.com/@masyarakat.pribumi" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://www.linkedin.com/in/danang-sofa-ma-arif-2409812a3?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://wa.me/6288216045246" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3 id="footer-links-title" class="editable">Link Cepat</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home"><i class="fas fa-chevron-right"></i> <span data-id="footer-home" class="editable">Rumah</span></a></li>
+                        <li><a href="#about"><i class="fas fa-chevron-right"></i> <span data-id="footer-about" class="editable">Tentang Saya</span></a></li>
+                        <li><a href="#services"><i class="fas fa-chevron-right"></i> <span data-id="footer-services" class="editable">Layanan</span></a></li>
+                        <li><a href="#portfolio"><i class="fas fa-chevron-right"></i> <span data-id="footer-portfolio" class="editable">Portofolio</span></a></li>
+                        <li><a href="#contact"><i class="fas fa-chevron-right"></i> <span data-id="footer-contact" class="editable">Kontak</span></a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3 id="footer-services-title" class="editable">Layanan</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> <span data-id="footer-service-1" class="editable">Pembuat Konten</span></a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> <span data-id="footer-service-2" class="editable">Analisis Data</span></a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> <span data-id="footer-service-3" class="editable">Pendidikan</span></a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> <span data-id="footer-service-4" class="editable">Konsultasi</span></a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3 id="footer-newsletter-title" class="editable">Newsletter</h3>
+                    <p id="footer-newsletter-description" class="editable">Berlangganan newsletter untuk mendapatkan update terbaru tentang proyek dan konten edukatif.</p>
+                    <form class="newsletter-form" id="newsletterForm">
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Masukkan email Anda" required autocomplete="email">
+                        </div>
+                        <button type="submit" class="btn click-effect" id="footer-newsletter-submit">Berlangganan</button>
+                    </form>
+                </div>
+            </div>
+            <div class="copyright">
+                <p class="editable">&copy; 2025 Danang Sofa Ma'arif. All Rights Reserved. | Designed With Aku Yang Selalu Mengagumimu Dari Jauh <i class="fas fa-heart" style="color: #e53e3e;"></i></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </div>
+
+    <!-- Portfolio Detail Modal -->
+    <div class="portfolio-detail-modal" id="portfolioDetailModal">
+        <div class="portfolio-detail-content">
+            <div class="portfolio-detail-header">
+                <h2 id="portfolioDetailTitle">Detail Portofolio</h2>
+                <button class="close-modal" id="closePortfolioDetailModal">&times;</button>
+            </div>
+            <div class="portfolio-detail-body">
+                <!-- Portfolio Slider -->
+                <div class="portfolio-slider-container" id="portfolioSliderContainer">
+                    <div class="portfolio-slider-track" id="portfolioSliderTrack">
+                        <!-- Slides will be added here -->
+                        <div class="portfolio-slide">
+                            <img src="images/portfolio/project1-1.jpg" alt="Project 1 Slide 1" loading="lazy">
+                        </div>
+                        <div class="portfolio-slide">
+                            <img src="images/portfolio/project1-2.jpg" alt="Project 1 Slide 2" loading="lazy">
+                        </div>
+                        <div class="portfolio-slide">
+                            <img src="images/portfolio/project1-3.jpg" alt="Project 1 Slide 3" loading="lazy">
+                        </div>
+                    </div>
+                    <button class="portfolio-slider-nav portfolio-slider-prev" id="portfolioSliderPrev">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="portfolio-slider-nav portfolio-slider-next" id="portfolioSliderNext">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                    <div class="portfolio-slider-dots" id="portfolioSliderDots">
+                        <!-- Dots will be added here -->
+                        <span class="portfolio-slider-dot active"></span>
+                        <span class="portfolio-slider-dot"></span>
+                        <span class="portfolio-slider-dot"></span>
+                    </div>
+                </div>
+                <div class="portfolio-detail-description">
+                    <h3 id="portfolioDetailSubtitle">Deskripsi Proyek</h3>
+                    <p id="portfolioDetailDescription">Deskripsi proyek akan ditampilkan di sini.</p>
+                    <div class="portfolio-detail-technologies" id="portfolioDetailTechnologies">
+                        <!-- Technologies will be loaded here -->
+                        <span class="technology-tag">Content Creation</span>
+                        <span class="technology-tag">Video Editing</span>
+                        <span class="technology-tag">Social Media</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div class="modal" id="editModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="editModalTitle">Edit Konten</h2>
+                <button class="close-modal" id="closeEditModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group" id="textEditGroup">
+                    <label for="editContent" id="editContentLabel">Konten</label>
+                    <textarea id="editContent" class="form-control" rows="6"></textarea>
+                </div>
+                <div class="form-group" id="imageUploadGroup" style="display: none;">
+                    <label for="editImage" id="editImageLabel">Upload Gambar Baru</label>
+                    <p class="file-format-info">
+                        <i class="fas fa-info-circle"></i> Format yang didukung: JPG, PNG, GIF, WebP, PDF, Screenshot (max. 5MB)
+                    </p>
+                    <input type="file" id="editImage" class="form-control" accept=".jpg,.jpeg,.png,.gif,.webp,.pdf,image/*">
+                    <div class="file-preview" id="editImagePreview">
+                        <img id="previewEditImage" src="" alt="Preview">
+                    </div>
+                </div>
+                <button class="btn click-effect" id="saveEdit" data-id="saveEdit">Simpan Perubahan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Google Analytics Event Tracking Script -->
+    <script>
+        // Enhanced Google Analytics Tracking
+        document.addEventListener('DOMContentLoaded', function() {
+            // Track initial page view
+            gtag('event', 'page_view', {
+                page_title: document.title,
+                page_location: window.location.href,
+                page_path: window.location.pathname + window.location.hash
+            });
+            
+            // Track navigation clicks
+            document.querySelectorAll('a[href^="#"]').forEach(link => {
+                link.addEventListener('click', function() {
+                    const sectionId = this.getAttribute('href').substring(1);
+                    if (sectionId) {
+                        setTimeout(() => {
+                            gtag('event', 'section_view', {
+                                event_category: 'Navigation',
+                                event_label: sectionId,
+                                section_name: sectionId
+                            });
+                        }, 300);
+                    }
+                });
+            });
+            
+            // Track button clicks
+            document.querySelectorAll('.click-effect').forEach(button => {
+                button.addEventListener('click', function() {
+                    const buttonId = this.getAttribute('data-id') || this.id || 'unknown_button';
+                    const buttonText = this.textContent.trim() || this.title || 'Button';
+                    
+                    gtag('event', 'button_click', {
+                        event_category: 'Interaction',
+                        event_label: buttonId,
+                        button_text: buttonText
+                    });
+                });
+            });
+            
+            // Track form submissions
+            const forms = ['contactForm', 'newsletterForm', 'portfolioForm', 'blogForm'];
+            forms.forEach(formId => {
+                const form = document.getElementById(formId);
+                if (form) {
+                    form.addEventListener('submit', function() {
+                        gtag('event', 'form_submit', {
+                            event_category: 'Form',
+                            event_label: formId,
+                            form_name: formId.replace('Form', '')
+                        });
+                    });
+                }
+            });
+            
+            // Track admin activities
+            const adminButtons = ['editModeToggle', 'adminDashboardToggle', 'saveBtn'];
+            adminButtons.forEach(btnId => {
+                const btn = document.getElementById(btnId);
+                if (btn) {
+                    btn.addEventListener('click', function() {
+                        gtag('event', 'admin_action', {
+                            event_category: 'Admin',
+                            event_label: btnId,
+                            action: this.title || btnId
+                        });
+                    });
+                }
+            });
+            
+            // Track portfolio item views
+            window.trackPortfolioView = function(portfolioId, title) {
+                gtag('event', 'portfolio_view', {
+                    event_category: 'Portfolio',
+                    event_label: portfolioId,
+                    portfolio_title: title
+                });
+            };
+            
+            // Track blog/article views
+            window.trackBlogView = function(blogId, title) {
+                gtag('event', 'blog_view', {
+                    event_category: 'Blog',
+                    event_label: blogId,
+                    blog_title: title
+                });
+            };
+            
+            // Track social media clicks
+            document.querySelectorAll('.social-links a').forEach(link => {
+                link.addEventListener('click', function() {
+                    const platform = this.querySelector('i').className.match(/fa-(.*?)(\s|$)/)[1];
+                    gtag('event', 'social_click', {
+                        event_category: 'Social',
+                        event_label: platform,
+                        platform: platform
+                    });
+                });
+            });
+            
+            // Track WhatsApp click
+            const whatsappBtn = document.getElementById('whatsappButton');
+            if (whatsappBtn) {
+                whatsappBtn.addEventListener('click', function() {
+                    gtag('event', 'whatsapp_click', {
+                        event_category: 'Contact',
+                        event_label: 'WhatsApp',
+                        contact_method: 'whatsapp'
+                    });
+                });
+            }
+            
+            // Track language switch
+            const languageOptions = document.querySelectorAll('.language-option');
+            languageOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    const lang = this.getAttribute('data-lang');
+                    gtag('event', 'language_switch', {
+                        event_category: 'Language',
+                        event_label: lang,
+                        language: lang
+                    });
+                });
+            });
+            
+            // Track filter usage in portfolio
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const filter = this.getAttribute('data-filter');
+                    gtag('event', 'portfolio_filter', {
+                        event_category: 'Portfolio',
+                        event_label: filter,
+                        filter_type: filter
+                    });
+                });
+            });
+            
+            // Track carousel navigation
+            const carouselNavs = ['carouselPrev', 'carouselNext'];
+            carouselNavs.forEach(navId => {
+                const nav = document.getElementById(navId);
+                if (nav) {
+                    nav.addEventListener('click', function() {
+                        gtag('event', 'carousel_nav', {
+                            event_category: 'Blog',
+                            event_label: navId,
+                            direction: navId.includes('Prev') ? 'previous' : 'next'
+                        });
+                    });
+                }
+            });
+            
+            // Track modal openings
+            const modals = ['detailModal', 'editModal', 'adminLoginModal', 'calendarModal'];
+            modals.forEach(modalId => {
+                const triggers = document.querySelectorAll(`[data-target="#${modalId}"], [onclick*="${modalId}"]`);
+                triggers.forEach(trigger => {
+                    trigger.addEventListener('click', function() {
+                        gtag('event', 'modal_open', {
+                            event_category: 'Modal',
+                            event_label: modalId,
+                            modal_type: modalId.replace('Modal', '')
+                        });
+                    });
+                });
+            });
+            
+            // Track file uploads
+            const fileInputs = ['portfolioImages', 'blogImages', 'editImage'];
+            fileInputs.forEach(inputId => {
+                const input = document.getElementById(inputId);
+                if (input) {
+                    input.addEventListener('change', function() {
+                        const fileCount = this.files.length;
+                        gtag('event', 'file_upload', {
+                            event_category: 'Upload',
+                            event_label: inputId,
+                            file_count: fileCount,
+                            input_type: inputId
+                        });
+                    });
+                }
+            });
+            
+            // Track scroll depth
+            let scrollTracked = {
+                25: false,
+                50: false,
+                75: false,
+                100: false
+            };
+            
+            window.addEventListener('scroll', function() {
+                const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+                
+                Object.keys(scrollTracked).forEach(threshold => {
+                    if (scrollPercent >= parseInt(threshold) && !scrollTracked[threshold]) {
+                        gtag('event', 'scroll_depth', {
+                            event_category: 'Engagement',
+                            event_label: `${threshold}%`,
+                            scroll_depth: `${threshold}%`
+                        });
+                        scrollTracked[threshold] = true;
+                    }
+                });
+            });
+            
+            // Track time on page
+            let startTime = Date.now();
+            window.addEventListener('beforeunload', function() {
+                const timeSpent = Math.round((Date.now() - startTime) / 1000);
+                gtag('event', 'time_on_page', {
+                    event_category: 'Engagement',
+                    event_label: 'page_exit',
+                    time_spent_seconds: timeSpent
+                });
+            });
+        });
+        
+        // Error tracking
+        window.addEventListener('error', function(e) {
+            gtag('event', 'error', {
+                event_category: 'Error',
+                event_label: e.message.substring(0, 100),
+                error_message: e.message,
+                error_url: e.filename,
+                error_line: e.lineno,
+                error_column: e.colno
+            });
+        });
+        
+        // Admin login tracking
+        const adminLoginBtn = document.getElementById('adminLoginBtn');
+        if (adminLoginBtn) {
+            adminLoginBtn.addEventListener('click', function() {
+                gtag('event', 'admin_login_attempt', {
+                    event_category: 'Security',
+                    event_label: 'login_attempt'
+                });
+            });
+        }
+        
+        // File upload validation function
+        window.validateFileUpload = function(input, maxSizeMB = 5, maxCount = 5, allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'application/pdf']) {
+            const files = input.files;
+            
+            // Check file count
+            if (files.length > maxCount) {
+                alert(`Maksimal ${maxCount} file yang dapat diupload`);
+                input.value = '';
+                return false;
+            }
+            
+            // Check each file
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                
+                // Check file size
+                if (file.size > maxSizeMB * 1024 * 1024) {
+                    alert(`File "${file.name}" terlalu besar. Maksimal ${maxSizeMB}MB per file`);
+                    input.value = '';
+                    return false;
+                }
+                
+                // Check file type
+                if (!allowedTypes.includes(file.type) && !file.type.startsWith('image/')) {
+                    alert(`File "${file.name}" memiliki format yang tidak didukung. Format yang didukung: JPG, PNG, GIF, WebP, PDF`);
+                    input.value = '';
+                    return false;
+                }
+            }
+            
+            return true;
+        };
+        
+        // Preview uploaded files
+        window.previewUploadedFiles = function(input, previewContainer, fileCountElement, fileSizeElement) {
+            const files = input.files;
+            previewContainer.innerHTML = '';
+            
+            if (files.length === 0) {
+                if (fileCountElement) fileCountElement.textContent = '0 file terpilih';
+                if (fileSizeElement) fileSizeElement.textContent = 'Total size: 0 MB';
+                return;
+            }
+            
+            let totalSize = 0;
+            
+            Array.from(files).forEach((file, index) => {
+                totalSize += file.size;
+                
+                const previewItem = document.createElement('div');
+                previewItem.className = 'file-preview-item';
+                
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.alt = `Preview ${index + 1}`;
+                        previewItem.appendChild(img);
+                        
+                        const fileName = document.createElement('p');
+                        fileName.textContent = file.name.length > 20 ? file.name.substring(0, 20) + '...' : file.name;
+                        fileName.className = 'file-name';
+                        previewItem.appendChild(fileName);
+                    };
+                    reader.readAsDataURL(file);
+                } else if (file.type === 'application/pdf') {
+                    previewItem.innerHTML = `
+                        <div class="file-icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <p class="file-name">${file.name.length > 20 ? file.name.substring(0, 20) + '...' : file.name}</p>
+                    `;
+                }
+                
+                previewContainer.appendChild(previewItem);
+            });
+            
+            if (fileCountElement) fileCountElement.textContent = `${files.length} file terpilih`;
+            if (fileSizeElement) fileSizeElement.textContent = `Total size: ${(totalSize / (1024 * 1024)).toFixed(2)} MB`;
+        };
+    </script>
+</body>
+</html>
